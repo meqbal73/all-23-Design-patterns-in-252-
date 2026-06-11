@@ -1,0 +1,162 @@
+
+<style>
+  h2.sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0); }
+  .wrap { padding: 1rem 0; font-family: var(--font-sans); }
+  .cat-header { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin: 2rem 0 0.5rem; padding: 6px 14px; border-radius: var(--border-radius-md); display: inline-block; }
+  .cat-creational { background: #EEEDFE; color: #3C3489; }
+  .cat-structural  { background: #E1F5EE; color: #085041; }
+  .cat-behavioral  { background: #FAEEDA; color: #633806; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { text-align: left; font-weight: 500; font-size: 12px; color: var(--color-text-secondary); padding: 6px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); text-transform: uppercase; letter-spacing: 0.04em; }
+  td { padding: 10px 10px; vertical-align: top; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); line-height: 1.55; }
+  tr:last-child td { border-bottom: none; }
+  .pname { font-weight: 500; white-space: nowrap; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; margin-top: 3px; }
+  .b-cr { background:#EEEDFE; color:#3C3489; }
+  .b-st { background:#E1F5EE; color:#085041; }
+  .b-bh { background:#FAEEDA; color:#633806; }
+  .kw { font-size: 11.5px; color: var(--color-text-secondary); }
+  .ex { font-size: 12px; color: var(--color-text-secondary); margin-top: 4px; font-style: italic; }
+  .col-name { width: 130px; }
+  .col-intent { width: auto; }
+  .col-kw { width: 200px; }
+</style>
+<div class="wrap">
+  <h2 class="sr-only">Full discussion of all 23 design patterns based on the cheatsheet</h2>
+
+  <div class="cat-header cat-creational">Creational Patterns — deal with object creation</div>
+  <table>
+    <thead><tr><th class="col-name">Pattern</th><th class="col-intent">Intent + Discussion</th><th class="col-kw">Keywords / Example</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">Singleton</span><br><span class="badge b-cr">Creational</span></td>
+        <td>Ensures a class has <b>only one instance</b> and provides a <b>global access point</b> to it. The constructor is made private; a static method returns the single instance, creating it on first call.<div class="ex">e.g. Database connection, app config manager, logger — anywhere one shared instance must coordinate the whole system.</div></td>
+        <td><span class="kw">only one instance · shared resource · global access point</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Prototype</span><br><span class="badge b-cr">Creational</span></td>
+        <td>Lets you <b>copy/clone existing objects</b> without making your code depend on their concrete class. Instead of <code>new ConcreteClass()</code>, you call <code>clone()</code> on an existing object.<div class="ex">e.g. Duplicating a complex game character with all its attributes — cheaper than rebuilding from scratch.</div></td>
+        <td><span class="kw">copy / clone · costly creation · pre-built templates</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Builder</span><br><span class="badge b-cr">Creational</span></td>
+        <td>Lets you construct <b>complex objects step by step</b>, producing different representations using the same construction code. Separates construction logic from the object itself. Uses a fluent <code>.withX().build()</code> chain.<div class="ex">e.g. Building a SQL query, a meal order (burger + drink + side), or an HTTP request with many optional parameters.</div></td>
+        <td><span class="kw">step by step · many optional params · .withX().build()</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Factory Method</span><br><span class="badge b-cr">Creational</span></td>
+        <td>Provides an interface for creating objects, letting <b>subclasses decide which concrete type</b> to instantiate. The parent class defines the factory method; subclasses override it. Client code never calls <code>new</code> directly.<div class="ex">e.g. A logistics app with <code>createTransport()</code> — subclasses return Truck or Ship. Adding a new type = new subclass only.</div></td>
+        <td><span class="kw">indirect creation · hides creation complexity · supports new types</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Abstract Factory</span><br><span class="badge b-cr">Creational</span></td>
+        <td>Lets you produce <b>families of related objects</b> together without specifying their concrete classes. Think of it as a "factory of factories." Swapping the whole factory swaps the entire product family at once.<div class="ex">e.g. UI toolkit: a <code>WindowsFactory</code> creates Windows-style buttons + checkboxes; a <code>MacFactory</code> creates Mac-style ones. Swap the factory = swap the whole "kit".</div></td>
+        <td><span class="kw">family of related objects · compatible product set · swap the whole "kit"</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cat-header cat-structural" style="margin-top:2rem">Structural Patterns — deal with object composition</div>
+  <table>
+    <thead><tr><th class="col-name">Pattern</th><th class="col-intent">Intent + Discussion</th><th class="col-kw">Keywords / Example</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">Adapter</span><br><span class="badge b-st">Structural</span></td>
+        <td>Allows objects with <b>incompatible interfaces</b> to work together via a wrapper that converts one interface to another. The Adapter implements the target interface and holds a reference to the Adaptee.<div class="ex">e.g. A third-party payment API expects <code>pay(cardNumber)</code> but your code calls <code>processPayment(userId)</code> — Adapter bridges the gap.</div></td>
+        <td><span class="kw">incompatible interface · third-party library · reconcile two interfaces</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Bridge</span><br><span class="badge b-st">Structural</span></td>
+        <td>Decouples an <b>abstraction from its implementation</b> so the two can vary independently. Instead of inheriting implementations, the abstraction holds a reference to an implementor interface.<div class="ex">e.g. A <code>Shape</code> (abstraction) + <code>Color</code> (implementation) — you can have RedCircle, BlueCircle without a class explosion.</div></td>
+        <td><span class="kw">two independent dimensions · separate abstraction from implementation · avoid class multiplication</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Composite</span><br><span class="badge b-st">Structural</span></td>
+        <td>Lets you compose objects into <b>tree structures</b> and treat individual objects and groups uniformly. Both leaf and composite nodes implement the same interface.<div class="ex">e.g. A file system: <code>File</code> and <code>Folder</code> both have <code>getSize()</code>. A folder's size = sum of its children's sizes.</div></td>
+        <td><span class="kw">tree structure · part-whole · treat individual and group uniformly</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Decorator</span><br><span class="badge b-st">Structural</span></td>
+        <td>Lets you <b>add behaviors/responsibilities to an object dynamically</b> by wrapping it in decorator objects, without modifying its class. Decorators implement the same interface as the object they wrap.<div class="ex">e.g. Coffee orders: <code>SimpleCoffee</code> wrapped with <code>MilkDecorator</code>, then <code>SugarDecorator</code> — each adds cost + description.</div></td>
+        <td><span class="kw">add behavior without subclassing · dynamically · stacks/layers · wrap the object</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Facade</span><br><span class="badge b-st">Structural</span></td>
+        <td>Provides a <b>single simplified interface</b> to a complex subsystem of classes. The facade doesn't add new functionality — it just makes the subsystem easier to use.<div class="ex">e.g. A <code>HomeTheaterFacade.watchMovie()</code> that internally turns on TV, dims lights, starts the sound system.</div></td>
+        <td><span class="kw">simplify a complex subsystem · one simple interface · hide complexity</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Flyweight</span><br><span class="badge b-st">Structural</span></td>
+        <td>Reduces memory usage by <b>sharing common (intrinsic) state</b> across a large number of objects. Intrinsic state = shared, stored in flyweight. Extrinsic state = unique per object, passed in at runtime.<div class="ex">e.g. A forest with 1,000,000 trees — the tree type/texture (intrinsic) is shared; only x/y position (extrinsic) differs per tree.</div></td>
+        <td><span class="kw">thousands of objects · save memory · intrinsic (shared) vs extrinsic (varying)</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Proxy</span><br><span class="badge b-st">Structural</span></td>
+        <td>Provides a <b>substitute/placeholder</b> for another object to control access to it. The proxy implements the same interface as the real object and adds logic before/after delegating.<div class="ex">Types: Protection Proxy (API key check), Virtual Proxy (lazy-load), Caching Proxy (cache results).</div></td>
+        <td><span class="kw">control access · same interface · validate before delegating · lazy-load / caching</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cat-header cat-behavioral" style="margin-top:2rem">Behavioral Patterns — deal with object communication</div>
+  <table>
+    <thead><tr><th class="col-name">Pattern</th><th class="col-intent">Intent + Discussion</th><th class="col-kw">Keywords / Example</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">Chain of Responsibility</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Passes a request along a <b>chain of handlers</b>; each handler decides either to process it or pass it to the next. Decouples sender from receiver.<div class="ex">e.g. Support tickets: Level1 → Level2 → Level3. Each level handles if it can, otherwise forwards.</div></td>
+        <td><span class="kw">pass request along a chain · multiple handlers · each handles or forwards</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Command</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Encapsulates a request as a <b>standalone object</b>, enabling you to pass, queue, log it, and support undo. Each command has an <code>execute()</code> and optionally <code>undo()</code>.<div class="ex">e.g. Text editor undo/redo, task schedulers, transaction logs.</div></td>
+        <td><span class="kw">undo support · encapsulate request as object · queue/schedule operations</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Interpreter</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Defines a representation for a language's grammar along with an interpreter that uses it to <b>interpret sentences</b> in that language.<div class="ex">e.g. SQL parsers, regex engines, math expression evaluators.</div></td>
+        <td><span class="kw">interpret/translate a language · grammar rules · recurring expressions</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Iterator</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Lets you <b>traverse elements of a collection sequentially</b> without exposing its internal structure. Each collection provides its own iterator.<div class="ex">e.g. Java's <code>for-each</code> loop, iterating over arrays, trees, graphs all with the same <code>next()</code> interface.</div></td>
+        <td><span class="kw">traverse a collection · without exposing internal structure · traverse / next()</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Mediator</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Reduces chaotic coupling between many objects by making them <b>communicate through a central mediator</b> object instead of directly. Objects don't know about each other.<div class="ex">e.g. Air traffic control: planes don't talk to each other, they all communicate through the control tower.</div></td>
+        <td><span class="kw">central communication hub · reduce coupling · instead of direct talk</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Memento</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Lets you <b>save and restore an object's internal state</b> without exposing its details — to support undo or snapshots. Three roles: Originator (has state), Memento (stores snapshot), Caretaker (manages history).<div class="ex">e.g. Undo in Photoshop, game save/load checkpoints.</div></td>
+        <td><span class="kw">save/restore state · snapshot · checkpoints · undo</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Observer</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Defines a <b>one-to-many relationship</b> so that when one object (Subject) changes state, all its subscribers (Observers) are notified automatically. Subject has <code>attach()</code>, <code>detach()</code>, <code>notifyObservers()</code>.<div class="ex">e.g. MVC — Model notifies Views. News feed notifying all subscribers. Player score notifying fans.</div></td>
+        <td><span class="kw">notify multiple objects · subscribe/unsubscribe · one-to-many · broadcast updates</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">State</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Lets an object <b>alter its behavior when its internal state changes</b>, as if it changed its class. Each state is a separate class implementing a common interface.<div class="ex">e.g. A vending machine: <code>IdleState</code>, <code>HasMoneyState</code>, <code>DispensingState</code> — each responds differently to the same events.</div></td>
+        <td><span class="kw">behavior changes with state · state machine · transitions between states</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Strategy</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Defines a family of algorithms, encapsulates each, and makes them <b>interchangeable at runtime</b>. The client holds a reference to a strategy interface and can swap it without changing its own code.<div class="ex">e.g. Payment methods (Credit/PayPal/Cash), sorting algorithms, file parsers (JSON/XML/CSV).</div></td>
+        <td><span class="kw">select algorithm at runtime · different interchangeable algorithms · dynamically</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Template Method</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Defines the <b>skeleton of an algorithm</b> in a parent class, deferring some steps to subclasses to redefine without changing the overall structure. The parent calls abstract methods that children implement.<div class="ex">e.g. Report generation: fetch → calculate → format → save. The parent fixes the order; only <code>calculate()</code> is overridden per subclass.</div></td>
+        <td><span class="kw">fixed-structure process · override steps only · same sequence · template fixes the order</span></td>
+      </tr>
+      <tr>
+        <td><span class="pname">Visitor</span><br><span class="badge b-bh">Behavioral</span></td>
+        <td>Lets you <b>add new operations to a set of objects without modifying their classes</b>, by separating the operation from the structure. Each element accepts a visitor; the visitor contains the new operation logic.<div class="ex">e.g. A document exporter: nodes (Paragraph, Image, Table) accept an <code>ExportVisitor</code> without changing their own classes.</div></td>
+        <td><span class="kw">add a new operation without changing classes · separate operation from structure · temporary extra behavior</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
